@@ -4,11 +4,10 @@
 %define         svnbuild 2011-04-12
 %define         faad2min 1:2.6.1
 
-Name:           mplayer
+Name:           mplayer-nonfree
 Version:        1.0
-Release:        0.124.%{pre}.faac%{?dist}
+Release:        0.124.%{pre}%{?dist}.R
 Summary:        Movie player playing most video formats and DVDs
-Epoch:		5
 
 Group:          Applications/Multimedia
 %if 0%{!?_without_amr:1}
@@ -26,15 +25,15 @@ Source0:        http://www.mplayerhq.hu/MPlayer/releases/MPlayer-%{version}%{pre
 Source1:        http://www.mplayerhq.hu/MPlayer/skins/Blue-1.7.tar.bz2
 Source10:       mplayer-snapshot.sh
 # set defaults for Fedora
-Patch2:         %{name}-config.patch
+Patch2:         mplayer-config.patch
 # use roff include statements instead of symlinks
-Patch8:         %{name}-manlinks.patch
+Patch8:         mplayer-manlinks.patch
 # erase any trace of libdvdcss
-Patch14:        %{name}-nodvdcss.patch
+Patch14:        mplayer-nodvdcss.patch
 # use system FFmpeg libraries
-Patch18:        %{name}-ffmpeg.patch
+Patch18:        mplayer-ffmpeg.patch
 # Upstream fix for http://bugzilla.mplayerhq.hu/show_bug.cgi?id=1904
-Patch19:        %{name}-pause.patch
+Patch19:        mplayer-pause.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  SDL-devel
@@ -106,7 +105,8 @@ BuildRequires:  libxslt
 %endif
 Obsoletes:      mplayer-fonts
 Requires:       faad2-libs >= %{faad2min}
-Requires:       mplayer-common = %{epoch}:%{version}-%{release}
+Requires:       mplayer-nonfree-common = %{version}-%{release}
+Conflicts:      mplayer
 
 %description
 MPlayer is a movie player that plays most MPEG, VOB, AVI, OGG/OGM,
@@ -133,7 +133,7 @@ Non-default rpmbuild options:
 %package        common
 Summary:        MPlayer common files
 Group:          Applications/Multimedia
-Epoch:		5
+Conflicts:      mplayer-common
 
 %description    common
 This package contains common files for MPlayer packages.
@@ -141,26 +141,26 @@ This package contains common files for MPlayer packages.
 %package        gui
 Summary:        GUI for MPlayer
 Group:          Applications/Multimedia
-Requires:       mplayer-common = %{epoch}:%{version}-%{release}
+Requires:       mplayer-nonfree-common = %{version}-%{release}
 Requires:       hicolor-icon-theme
-Epoch:		5
+Conflicts:      mplayer-gui
 
 %description    gui
 This package contains a GUI for MPlayer and a default skin for it.
 
-%package     -n mencoder
+%package     -n mencoder-nonfree
 Summary:        MPlayer movie encoder
 Group:          Applications/Multimedia
-Requires:       mplayer-common = %{epoch}:%{version}-%{release}
-Epoch:		5
+Requires:       mplayer-nonfree-common = %{version}-%{release}
+Conflicts:      mencoder
 
-%description -n mencoder
+%description -n mencoder-nonfree
 This package contains the MPlayer movie encoder. 
 
 %package        doc
 Summary:        MPlayer documentation in various languages
 Group:          Documentation
-Epoch:		5
+Conflicts:      mplayer-doc
 
 %description    doc
 MPlayer documentation in various languages.
@@ -168,9 +168,9 @@ MPlayer documentation in various languages.
 %package        tools
 Summary:        Useful scripts for MPlayer
 Group:          Applications/Multimedia
-Requires:       mencoder = %{version}-%{release}
-Requires:       mplayer = %{version}-%{release}
-Epoch:		5
+Requires:       mencoder-nonfree = %{version}-%{release}
+Requires:       mplayer-nonfree = %{version}-%{release}
+Conflicts:      mplayer-tools
 
 %description    tools
 This package contains various scripts from MPlayer TOOLS directory.
@@ -300,7 +300,7 @@ install -Dpm 644 etc/example.conf \
 install -pm 644 etc/{input,menu}.conf $RPM_BUILD_ROOT%{_sysconfdir}/mplayer/
 
 # GUI mplayer
-install -pm 755 GUI/%{name} $RPM_BUILD_ROOT%{_bindir}/gmplayer
+install -pm 755 GUI/mplayer $RPM_BUILD_ROOT%{_bindir}/gmplayer
 
 # Default skin
 install -dm 755 $RPM_BUILD_ROOT%{_datadir}/mplayer/skins
@@ -316,7 +316,7 @@ install -pm 644 etc/mplayer.xpm \
 desktop-file-install \
         --vendor livna \
         --dir $RPM_BUILD_ROOT%{_datadir}/applications \
-        etc/%{name}.desktop
+        etc/mplayer.desktop
 
 # Codec dir
 install -dm 755 $RPM_BUILD_ROOT%{codecdir}
@@ -367,7 +367,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/icons/hicolor/32x32/apps/mplayer.xpm
 %{_datadir}/mplayer/skins/
 
-%files -n mencoder
+%files -n mencoder-nonfree
 %defattr(-, root, root, -)
 %{_bindir}/mencoder
 %{_mandir}/man1/mencoder.1*
@@ -409,6 +409,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/mplayer/*.fp
 
 %changelog
+* Tue Aug 03 2011 Vasiliy N. Glazov <vascom2@gmail.com> - 1.0-0.124.20110412svn.R
+- Add upstream patch for pause crash.
+
 * Thu Jun 16 2011 Ricky Zhou <ricky@rzhou.org> - 1.0-0.124.20110412svn
 - Add upstream patch for pause crash.
 
