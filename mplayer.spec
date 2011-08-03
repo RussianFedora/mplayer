@@ -6,7 +6,7 @@
 
 Name:           mplayer-nonfree
 Version:        1.0
-Release:        0.124.%{pre}%{?dist}.R
+Release:        0.124.%{pre}.1%{?dist}.R
 Summary:        Movie player playing most video formats and DVDs
 
 Group:          Applications/Multimedia
@@ -409,8 +409,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/mplayer/*.fp
 
 %changelog
-* Tue Aug 03 2011 Vasiliy N. Glazov <vascom2@gmail.com> - 1.0-0.124.20110412svn.R
-- Add upstream patch for pause crash.
+* Tue Aug 03 2011 Vasiliy N. Glazov <vascom2@gmail.com> - 1.0-0.124.20110412svn.1.R
+- Enable FAAC
 
 * Thu Jun 16 2011 Ricky Zhou <ricky@rzhou.org> - 1.0-0.124.20110412svn
 - Add upstream patch for pause crash.
