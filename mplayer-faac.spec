@@ -4,9 +4,9 @@
 %define         svnbuild 2011-04-12
 %define         faad2min 1:2.6.1
 
-Name:           mplayer-nonfree
+Name:           mplayer-faac
 Version:        1.0
-Release:        0.124.%{pre}.1%{?dist}.R
+Release:        0.124.%{pre}.1%{?dist}.1.R
 Summary:        Movie player playing most video formats and DVDs
 
 Group:          Applications/Multimedia
@@ -105,7 +105,7 @@ BuildRequires:  libxslt
 %endif
 Obsoletes:      mplayer-fonts
 Requires:       faad2-libs >= %{faad2min}
-Requires:       mplayer-nonfree-common = %{version}-%{release}
+Requires:       mplayer-faac-common = %{version}-%{release}
 Conflicts:      mplayer
 
 %description
@@ -141,20 +141,20 @@ This package contains common files for MPlayer packages.
 %package        gui
 Summary:        GUI for MPlayer
 Group:          Applications/Multimedia
-Requires:       mplayer-nonfree-common = %{version}-%{release}
+Requires:       mplayer-faac-common = %{version}-%{release}
 Requires:       hicolor-icon-theme
 Conflicts:      mplayer-gui
 
 %description    gui
 This package contains a GUI for MPlayer and a default skin for it.
 
-%package     -n mencoder-nonfree
+%package     -n mencoder-faac
 Summary:        MPlayer movie encoder
 Group:          Applications/Multimedia
-Requires:       mplayer-nonfree-common = %{version}-%{release}
+Requires:       mplayer-faac-common = %{version}-%{release}
 Conflicts:      mencoder
 
-%description -n mencoder-nonfree
+%description -n mencoder-faac
 This package contains the MPlayer movie encoder. 
 
 %package        doc
@@ -168,8 +168,8 @@ MPlayer documentation in various languages.
 %package        tools
 Summary:        Useful scripts for MPlayer
 Group:          Applications/Multimedia
-Requires:       mencoder-nonfree = %{version}-%{release}
-Requires:       mplayer-nonfree = %{version}-%{release}
+Requires:       mencoder-faac = %{version}-%{release}
+Requires:       mplayer-faac = %{version}-%{release}
 Conflicts:      mplayer-tools
 
 %description    tools
@@ -367,7 +367,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/icons/hicolor/32x32/apps/mplayer.xpm
 %{_datadir}/mplayer/skins/
 
-%files -n mencoder-nonfree
+%files -n mencoder-faac
 %defattr(-, root, root, -)
 %{_bindir}/mencoder
 %{_mandir}/man1/mencoder.1*
@@ -409,6 +409,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/mplayer/*.fp
 
 %changelog
+* Thu Aug  4 2011 Arkady L. Shane <ashejn@russianfedora.ru> 1.0-0.124.20110412svn.1.1.R
+- rename to mplayer-faac
+
 * Tue Aug 03 2011 Vasiliy N. Glazov <vascom2@gmail.com> - 1.0-0.124.20110412svn.1.R
 - Enable FAAC
 
