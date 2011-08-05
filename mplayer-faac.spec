@@ -6,7 +6,7 @@
 
 Name:           mplayer-faac
 Version:        1.0
-Release:        0.124.%{pre}.1%{?dist}.1.R
+Release:        0.124.%{pre}%{?dist}.1.R
 Summary:        Movie player playing most video formats and DVDs
 
 Group:          Applications/Multimedia
@@ -409,6 +409,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/mplayer/*.fp
 
 %changelog
+* Thu Aug 05 2011 Vasiliy N. Glazov <vascom2@gmail.com> 1.0-0.124.20110412svn.1.R
+- corrected release
+
 * Thu Aug  4 2011 Arkady L. Shane <ashejn@russianfedora.ru> 1.0-0.124.20110412svn.1.1.R
 - rename to mplayer-faac
 
