@@ -22,7 +22,7 @@ Source0:        mplayer-export-%{svnbuild}.tar.bz2
 %else
 Source0:        http://www.mplayerhq.hu/MPlayer/releases/MPlayer-%{version}%{pre}.tar.bz2
 %endif
-Source1:        http://www.mplayerhq.hu/MPlayer/skins/Blue-1.7.tar.bz2
+Source1:        http://www.mplayerhq.hu/MPlayer/skins/Blue-1.8.tar.bz2
 Source10:       mplayer-snapshot.sh
 # set defaults for Fedora
 Patch2:         mplayer-config.patch
